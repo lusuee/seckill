@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration
-		PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-		"http://mybatis.org/dtd/mybatis-3-config.dtd">
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	<!-- peizhi quanju shuxing -->
-	<settings>
-		<!-- shiyong jdbc de getGeneratedKeys huoqu shujuku zizeng zhujianzhi -->
-		<setting name="useGeneratedKeys" value="true"/>
-		<!-- shiyong lie bieming tihuan lieming default:true -->
-		<setting name="useColumnLabel" value="true"/>
-		<!-- kaiqi tuofengmingming zhuanhuan
-			Table(create_time) -> Entity(createTime)-->
-		<setting name="mapUnderscoreToCamelCase" value="true"/>
-	</settings>
+    <!-- peizhi quanju shuxing -->
+    <settings>
+        <!-- shiyong jdbc de getGeneratedKeys huoqu shujuku zizeng zhujianzhi -->
+        <setting name="useGeneratedKeys" value="true"/>
+        <!-- shiyong lie bieming tihuan lieming default:true -->
+        <setting name="useColumnLabel" value="true"/>
+        <!-- kaiqi tuofengmingming zhuanhuan
+            Table(create_time) -> Entity(createTime)-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
 </configuration>
