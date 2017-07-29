@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- peizhi zhenghe MyBatis -->
+    <!-- 1.peizhi shujuku xiangguancanshu -->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <!-- 2.shujuku lianjiechi -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <!-- peizhi lianjiechi shuxiang -->
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.user}"/>
+        <property name="password" value="${jdbc.password}"/>
+
+        <!-- lianjiechi siyou shuxiang -->
+        <property name="maxPoolSize" value="30"/>
+        <property name="minPoolSize" value="10"/>
+        <!-- guanbi lianjie hou bu zidong commit -->
+        <property name="autoCommitOnClose" value="false"/>
+        <!-- huoqu dangqian lianjie chaoshi -->
+        <property name="checkoutTimeout" value="1000"/>
+        <!-- dang huoqu lianjie shibai chongshi cishu -->
+        <property name="acquireRetryAttempts" value="2"/>
+    </bean>
+
+    <!-- 3.peizhi SqlSessionFactory duixiang -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- zhuru shujuku lianjiechi -->
+        <property name="dataSource" ref="dataSource"/>
+        <!-- peizhi MyBatis quanju peizhi wenjian: mybatis-config.xml -->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <!-- saomiao entity bao, shiyong bieming -->
+        <property name="typeAliasesPackage" value="org.seckill.entity"/>
+        <!-- sao miao sql peizhi wenjian:mapper xuyaode xml wenjian -->
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+    </bean>
+
+    <!-- 4.peizhi saomiao dao jiekou bao, dongtai shixian dao jiekou,zhuru daospring rongqi zhong -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- zhuru sqlSessionFactory
+         sqlSessionFactoryBeanName hou jia zai,fangshi shuju ku can shu wei jia zai-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!-- gei chu xuyao sao miao dao jiekou bao -->
+        <property name="basePackage" value="org.seckill.dao"/>
+    </bean>
+
+    <bean id="redisDao" class="org.seckill.dao.cache.RedisDao">
+        <constructor-arg index="0" value="127.0.0.1"/>
+        <constructor-arg index="1" value="6379"/>
+    </bean>
+</beans>
